@@ -1,6 +1,7 @@
 package com.singh.cashrulz.xourse;
 
 import android.app.Activity;
+import android.app.ListActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -19,6 +20,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,11 +28,13 @@ import java.util.Map;
  * Created by cashrulz on 24/8/15.
  */
 public class MainActivity extends AppCompatActivity {
-    ListView course_list = (ListView) findViewById(R.id.course_list_view);
+    
+    ArrayList<String> course_title = new ArrayList<String>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.start_activity);
+        setContentView(R.layout.main_activity);
 
         final RequestQueue requestQueue = Volley.newRequestQueue(this);
 
@@ -44,10 +48,11 @@ public class MainActivity extends AppCompatActivity {
                             try {
                                 course_json = response.getJSONObject(i);
                                 Log.d("cash", String.valueOf(course_json));
+                                course_title.add(course_json.getString("course_name"));
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                        }
+                        }Log.d("Cash",String.valueOf(course_title));
                     }
                 },
                 new Response.ErrorListener() {
