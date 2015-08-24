@@ -34,9 +34,20 @@ public class StartActivity extends Activity {
             public void run() {
                 TextView text = (TextView) findViewById(R.id.xourse);
                 text.setText("Xourse");
-                handler_text.postDelayed(this, 2000);
+                handler_text.postDelayed(this, 3000);
             }
-        }, 2000);
+        }, 3000);
+
+        final Handler handler_tag = new Handler();
+        handler_text.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                TextView text = (TextView) findViewById(R.id.tag_line);
+                text.setText("Zomato for Online CourseWare");
+                handler_text.postDelayed(this, 5000);
+            }
+        }, 5000);
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -45,7 +56,7 @@ public class StartActivity extends Activity {
                 startActivity(mainIntent);
                 StartActivity.this.finish();
             }
-        }, 4000);
+        }, 7000);
 
 
     }

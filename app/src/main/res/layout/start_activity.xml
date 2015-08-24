@@ -14,18 +14,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/xourse_logo"
-        android:layout_centerVertical="true"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        />
+        android:layout_marginTop="123dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/xourse"
-        android:layout_alignParentBottom="true"
+        android:textColor="#ffffff"
+        android:layout_below="@+id/xourse_logo"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="103dp"
-        android:textColor="#ffffff"/>
+        android:layout_marginTop="70dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tag_line"
+        android:layout_below="@+id/xourse"
+        android:fontFamily="sans-serif"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="45dp"
+        android:textColor="#4eff15"
+        android:textStyle="normal"/>
 
 </RelativeLayout>

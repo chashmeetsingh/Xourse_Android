@@ -5,6 +5,7 @@ import android.app.ListActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.android.volley.AuthFailureError;
@@ -20,16 +21,19 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.singh.cashrulz.xourse.R.id.course_list_view;
 
 /**
  * Created by cashrulz on 24/8/15.
  */
 public class MainActivity extends AppCompatActivity {
-    
-    ArrayList<String> course_title = new ArrayList<String>();
+
+    private ListView course_list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,15 +48,28 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(JSONArray response) {
                         JSONObject course_json;
                         Log.d("cash",String.valueOf(response.length()));
+                        String[] course_title_array = new String[response.length()];
                         for(int i=0;i<response.length();i++) {
                             try {
                                 course_json = response.getJSONObject(i);
                                 Log.d("cash", String.valueOf(course_json));
-                                course_title.add(course_json.getString("course_name"));
+                                course_title_array[i] = course_json.getString("course_name");
+                                Log.d("cash",course_title_array[i]);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                        }Log.d("Cash",String.valueOf(course_title));
+                        }Log.d("Cash",String.valueOf(course_title_array));
+
+                        course_list = (ListView) findViewById(course_list_view);
+
+                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                                MainActivity.this,
+                                android.R.layout.simple_list_item_1,
+                                course_title_array);
+
+                        Log.d("cash",String.valueOf(arrayAdapter));
+
+                        course_list.setAdapter(arrayAdapter);
                     }
                 },
                 new Response.ErrorListener() {
@@ -63,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 }) {};
 
         requestQueue.add(networkRequest);
+
 
     }
 }
