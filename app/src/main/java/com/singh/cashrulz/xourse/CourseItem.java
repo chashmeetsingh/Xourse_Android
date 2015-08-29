@@ -5,9 +5,19 @@ package com.singh.cashrulz.xourse;
  */
 public class CourseItem {
     private String title;
+    private String imageUrl;
 
-    public CourseItem(String title){
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public CourseItem(String title, String imageUrl){
         this.title = title;
+        this.imageUrl = imageUrl;
     }
 
 

@@ -3,6 +3,8 @@ package com.singh.cashrulz.xourse;
 /**
  * Created by cashrulz on 28/8/15.
  */
+import android.content.Context;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,10 +12,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-    private String[] itemsData;
+import com.squareup.picasso.Picasso;
 
-    public MyAdapter(String[] itemsData) {
+import java.util.ArrayList;
+import java.util.List;
+
+public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+    private List<CourseItem> itemsData;
+
+    public MyAdapter(List<CourseItem> itemsData) {
         this.itemsData = itemsData;
     }
 
@@ -38,7 +45,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         // - get data from your itemsData at this position
         // - replace the contents of the view with that itemsData
 
-        viewHolder.txtViewTitle.setText(itemsData[position]);
+        viewHolder.txtViewTitle.setText(itemsData.get(position).getTitle());
+        Uri uri = Uri.parse(itemsData.get(position).getImageUrl());
+        Context context = viewHolder.imgViewIcon.getContext();
+        Picasso.with(context).load(uri).into(viewHolder.imgViewIcon);
+        //viewHolder.imgViewIcon.setImageResource(itemsData.get(position).getImageUrl());
 
 
     }
@@ -60,6 +71,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     // Return the size of your itemsData (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return itemsData.length;
+        return itemsData.size();
     }
 }

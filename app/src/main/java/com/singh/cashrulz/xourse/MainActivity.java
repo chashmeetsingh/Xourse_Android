@@ -27,6 +27,7 @@ import org.json.JSONObject;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -35,7 +36,6 @@ import java.util.Map;
  */
 public class MainActivity extends AppCompatActivity {
 
-    private ListView course_list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,13 +51,14 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(JSONArray response) {
                         JSONObject course_json;
                         Log.d("cash",String.valueOf(response.length()));
-                        String[] course_title_array = new String[response.length()] ;
+                        //String[] course_title_array = new String[response.length()] ;
+                        List<CourseItem> course_title_array = new ArrayList<>();
                         for(int i=0;i<response.length();i++)
                             try {
                                 course_json = response.getJSONObject(i);
                                 Log.d("cash", String.valueOf(course_json));
-                                course_title_array[i] = (course_json.getString(getString(R.string.title)));
-                                Log.d("cash", String.valueOf(course_title_array[i]));
+                                //course_title_array[i] = course_json.getString(getString(R.string.title));
+                                course_title_array.add(new CourseItem(course_json.getString("course_name"),course_json.getString("image")));
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -76,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
 //                        course_list.setAdapter(arrayAdapter);
 
                         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-
+                        recyclerView.setHasFixedSize(true);
                         // 2. set layoutManger
                         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
                         // 3. create an adapter
